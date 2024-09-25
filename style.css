@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@200,300,400;500;600&display=swap');
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+    overscroll-behavior: none;
+    -ms-scroll-chaining: none;
+    scroll-behavior: smooth;
+    margin:0px;
+    padding:0px;
+    overflow-x: hidden;
+    color:#fff;
+    font-size:13px;
+}
+a{
+    color:#fff;
+}
+body {
+    background-color: #333;
+    font-family: "Poppins", sans-serif;
+}
+.signature-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin-top:40px;
+}
+.signature-container canvas {
+    border: 2px solid #32CD32;
+    border-radius: 5px;
+}
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
