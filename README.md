@@ -57,8 +57,8 @@ $('#signpad').SignPad({
 
 #### Parameters
 
-| Parameter | Description | Default |
-|:---:|:---:|:---:|
+| Parameter | Description | Default Value |
+|:---|:---|---:|
 | width | Canvas width in pixels | 400 |
 | height | Canvas height in pixels | 200 |
 | lineColor | Line color in hex format | #0000FF |
@@ -97,7 +97,7 @@ $('#clear').click(); // Clear
 
 The plugin sends a JSON object to the server with the following structure:
 
-```json
+```javascript
 {
     "userId": 123,
     "signature": "data:image/png;base64,...",  // Signature in PNG format as base64
