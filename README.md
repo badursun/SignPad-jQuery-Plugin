@@ -1,5 +1,7 @@
 ## SignPad jQuery Plugin
 
+![signpad](https://github.com/user-attachments/assets/743f514a-2271-4128-827a-6455c227c5fe)
+
 SignPad is a jQuery signature pad plugin that can be integrated into websites. It allows users to sign in to accept a contract. This plugin comes with features like undo functionality and the ability to send signature data in JSON format to the server. It offers dynamic sizing, styling options, and ease of use.
 
 #### Features
