@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <title>SignPad jQuery Plugin | By Badursun</title>
     <meta charset="UTF-8" />
@@ -12,12 +12,46 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 offset-lg-4 col-12">
-
+            <div class="col-lg-4 col-12">
+                <h1 class="h1-title">SignPad Demo</h1>
                 <!-- SignPad Container -->
                 <div id="signpad"></div>
                 <!-- SignPad Container -->
-
+            </div>
+            <div class="col-lg-6 lg-offset-1 col-12">
+                <h1 class="h1-title">SignPad Logs</h1>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td width="300px">Minimum Stroke Length</td>
+                            <td align="right" id="debug_minStrokeLength"></td>
+                        </tr>
+                        <tr>
+                            <td>Drawed Stroke Length</td>
+                            <td align="right" id="debug_drawdedStrokeLength">0px</td>
+                        </tr>
+                        <tr>
+                            <td>Expected Stroke Length Reached</td>
+                            <td align="right" id="debug_isReachedStroke"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Drawed Lines</td>
+                            <td align="right" id="debug_drawedLines">0</td>
+                        </tr>
+                        <tr>
+                            <td>Error Text</td>
+                            <td align="right" id="errorLog"></td>
+                        </tr>
+                        <tr>
+                            <td>Trigger Checkbox onSave</td>
+                            <td align="right">
+                                <label>
+                                    <input type="checkbox" name="acceptForm" id="acceptForm" value="Not Signed" /> Sign And Accept Form
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -31,19 +65,71 @@
     <script>
         jQuery(document).ready(function($) {
             $('#signpad').SignPad({
-                width   : 400,
-                height  : 200,
-                userId  : 123,
-                canvasId: 'signature-pad-canvas',
-                styles  : {
-                    clearBtn    : "btn btn-danger btn-sm",
-                    undoBtn     : "btn btn-info btn-sm",
-                    saveBtn     : "btn btn-success btn-sm"
+                width           : 400,
+                height          : 200,
+                userId          : 123,
+                canvasId        : 'signature-pad-canvas',
+                minStrokeLength : 500, // px
+                triggerInput    : {
+                    target          : '#acceptForm',
+                    value           : 'Signed'
+                }, 
+                styles          : {
+                    clearBtn        : "btn btn-danger btn-sm",
+                    undoBtn         : "btn btn-info btn-sm",
+                    saveBtn         : "btn btn-success btn-sm",
+                    downloadBtn     : "btn btn-info btn-sm"
                 },
-                onSave  : async (postData)=>{
-                    console.log("Signature saved with data:", postData);
-                }
+                onInit              : async (settings) => {
+                    console.log("onInit:", settings);
+                    $('#debug_minStrokeLength').html(`${settings.minStrokeLength}px`);
+                },
+                onSave              : async (drawObj) => {
+                    console.log("onSave:", drawObj);
+                },
+                onError             : async (error) => {
+                    console.log("onError:", error);
+                    $('#errorLog').html( error.text );
+                },
+                onStartDrawing      : async (drawObj) => {
+                    console.log("onStartDrawing", drawObj);
+                },
+                onEndDrawing        : async (drawObj) => {
+                    console.log("onEndDrawing", drawObj);
+                    logger(drawObj);
+                },
+                onDrawing      : async (drawObj) => {
+                    console.log("onDrawing", drawObj);
+                    logger(drawObj);
+                },
+                onReachedMinStroke  : async (drawObj) => {
+                    console.log(`onReachedMinStroke:`, drawObj);
+                },
+                onClear             : async (drawObj) => {
+                    console.log("onClear:", drawObj);
+                    logger(drawObj);
+                },
+                onUndo              : async (drawObj) => {
+                    console.log("onUndo:", drawObj);
+                    logger(drawObj);
+                },
+                onOrientationChange : async (data) => {
+                    console.log("onOrientationChange:", data);
+                },
+                onDownload : async (data) => {
+                    console.log("onDownload:", data);
+                },
             });
+
+            /* for Demo Purposes */
+            const logger = (drawObj)=>{
+                $('#errorLog').html('');
+                $('#debug_drawedLines').html(`${drawObj.totalDrawedLines}`);
+                $('#debug_drawdedStrokeLength').html(`${drawObj.totalStrokeLength.toFixed(2)}px`);
+                $('#debug_isReachedStroke').html(`
+                    ${drawObj.minStrokeReached ? '<span class="badge bg-success">Yes</span>' : '<span class="badge bg-danger">No</span>'}
+                `);
+            }
         }); 
     </script>
     <!-- SignPad -->
