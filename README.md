@@ -9,10 +9,12 @@ Check [https://burakdursun.com/SignPad-jQuery-Plugin/](https://burakdursun.com/S
 
 #### Features
 
-- Allows users to sign and save their signatures.
-- Undo and Clear functionality improves user experience.
-- Signature is sent to the server in PNG format along with additional details (timestamp, user ID).
-- Can be customized with dynamic width, height, and styling parameters.
+- Visual signature can be downloaded or signature data can be posted to a remote server after signing.
+- Undo and Clear functions improve the user experience, and the mobile version uses full screen.
+- Signature Data is sent to the server in dataPNG (toDataURL) format with additional details (timestamp, user identifiers).
+- Customizable and responsive with dynamic width, height and style parameters.
+- Event triggers can be used for all operations.
+- With the signing operation, a checkbox can be checked or data can be added to an input.
 
 #### Installation
 
@@ -69,7 +71,21 @@ $('#signpad').SignPad({
 | userId | User ID for tracking the user who signed | null |
 | canvasId | ID of the canvas element | 'signature-pad' |
 | styles | Styling parameters for buttons (`clearBtn`, `undoBtn`, `saveBtn`) | {} |
-| onSave | Function to execute when the signature is saved. It receives the signature data as JSON format. | Empty function |
+
+#### Event Triggers
+| Parameter | Description | Default Value |
+|:---|:---|---:|
+| onInit | Function to execute when the signature pad is initialized. This function is triggered once the pad is ready. | Empty function |
+| onSave | Function to execute when the signature is saved. It receives the signature data in JSON format. | Empty function |
+| onError | Function to execute when an error occurs during the signature process. It receives error details in JSON format. | Empty function |
+| onStartDrawing | Function to execute when the user starts drawing a signature. | Empty function |
+| onEndDrawing | Function to execute when the user stops drawing. | Empty function |
+| onReachedMinStroke | Function to execute when the signature reaches the minimum stroke length. | Empty function |
+| onClear | Function to execute when the clear button is pressed, erasing the signature. | Empty function |
+| onUndo | Function to execute when the undo button is pressed, reversing the last drawn line. | Empty function |
+| onOrientationChange | Function to execute when the device's orientation changes (e.g., switching between portrait and landscape). | Empty function |
+| onDrawing | Function to execute continuously while the user is drawing on the signature pad. | Empty function |
+| onDrawingonDownload | Function to execute when the signature is downloaded. It handles the process of downloading the signature as an image. | Empty function |
 
 #### Example Save and Send Function
 
@@ -85,17 +101,6 @@ onSave  : async (postData) => {
     });
 }
 ```
-
-#### Undo and Clear Functions
-
-- **Undo**: Removes the last drawn line by the user.
-- **Clear**: Clears the entire canvas area.
-
-```javascript
-$('#undo').click();  // Undo
-$('#clear').click(); // Clear
-```
-
 #### Data Structure Sent to the Server
 
 The plugin sends a JSON object to the server with the following structure:
@@ -108,7 +113,20 @@ The plugin sends a JSON object to the server with the following structure:
 }
 ```
 
+#### Contributing
+Feel free to open pull requests; we welcome contributions! However, for significant changes, it's best to open an issue beforehand.
+
 #### License
-This project is licensed under the MIT License.
+Copyright 2019 Anthony Burak DURSUN
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this project except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 > By Badursun (c) 2024 burakdursun.com
